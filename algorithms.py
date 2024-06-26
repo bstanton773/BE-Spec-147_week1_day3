@@ -117,3 +117,77 @@ print('Return Value:', sort_return)
 line_break()
 
 
+from random import randint
+
+unsorted_list = [randint(1,50) for _ in range(10)]
+
+
+
+# Bubble Sort - 
+# Worst Case - O(n**2) Time Complexity
+# Best Case - O(n) Time Complexity
+# Space Complexity - O(1) Constant
+
+print('Bubble Sort:')
+
+def bubble_sort(lst):
+    # When we first start, set up a vairable (swapped) to True to begin the while loop
+    swapped = True
+    # Set a variable for number of indices we can skip at end of list (after x loops, we know the last x elements are sorted)
+    x = 1
+    while swapped:
+        # Begin the loop with the assumption (hope?) that we don't have to make any more swaps (aka the list is already sorted)
+        swapped = False
+        # Start at the 0-index and loop to the second to last item (because we check each item and the item to its right)
+        for idx in range(len(lst) - x):
+            # Check if the value at idx is greater than the value to its right (idx+1)
+            if lst[idx] > lst[idx+1]:
+                # Swap those value
+                lst[idx], lst[idx+1] = lst[idx+1], lst[idx]
+                # Because we made a swap, set the swapped boolean to True 
+                swapped = True
+        # After each full loop through the list, increase the num we can skip at end by 1
+        x += 1
+    # Once the while loop is done (meaning we looped through and made no swaps), our list is sorted, return the list
+    return lst
+
+print(unsorted_list)
+bubble_sort(unsorted_list)
+print(unsorted_list)
+
+
+random_list = [randint(1,50) for _ in range(10)]
+
+
+# Insertion Sort - 
+# Worst Case - O(n**2) Time Complexity
+# Best Case - O(n) Time Complexity
+# Space Complexity - O(1) Constant
+
+print('Insertion Sort:')
+
+def insertion_sort(lst):
+    # Loop over the unsorted section (start at the 1-index because the 0-index is "sorted")
+    for i in range(1, len(lst)):
+        pointer = i
+        # While we are not at the front of the list AND the element to the left is greater than the pointer element
+        while pointer > 0 and lst[pointer-1] > lst[pointer]:
+            # Swap the element with the element to its left
+            lst[pointer], lst[pointer-1] = lst[pointer-1], lst[pointer]
+            # Move the pointer to the left one index (to match the new swap)
+            pointer -= 1
+    # Once we've looped over the unordered section, the list should be ordered
+    return lst
+
+print(random_list)
+insertion_sort(random_list)
+print(random_list)
+
+
+
+cities = ['Chicago', 'New York', 'Los Angeles', 'Phoenix', 'Denver', 'Houston', 'Boston']
+
+bubble_sort(cities)
+print(cities)
+
+
