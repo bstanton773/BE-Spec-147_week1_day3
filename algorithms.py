@@ -190,4 +190,147 @@ cities = ['Chicago', 'New York', 'Los Angeles', 'Phoenix', 'Denver', 'Houston', 
 bubble_sort(cities)
 print(cities)
 
+line_break()
+
+
+# Merge Sort - 
+# Worst Case - O(n log n) Time Complexity
+# Best Case - O(n log n) Time Complexity
+# Space Complexity - O(n)
+print('Merge Sort:')
+
+another_list = [randint(1, 50) for _ in range(10)]
+
+
+def merge_sort(lst):
+    # Check if the list can be split into two
+    if len(lst) > 1:
+        # Find the midway point
+        mid = len(lst) // 2
+        # Split the list into a left half and right half
+        left_half = lst[:mid]
+        right_half = lst[mid:]
+
+        # Call merge_sort on the left half
+        merge_sort(left_half)
+        # Call merge_sort on the right half
+        merge_sort(right_half)
+
+        # Merge the left and right half lists back into the original list
+        # index pointers for the three lists
+        l = 0 # pointer for the left half
+        r = 0 # pointer for the right half
+        m = 0 # pointer for the main list
+
+        # While the left and right pointer are still pointing at valid indices
+        while l < len(left_half) and r < len(right_half):
+            # Compare the value at left pointer vs right pointer
+            if left_half[l] < right_half[r]:
+                # Copy the left value into the main list
+                lst[m] = left_half[l]
+                # Move the left pointer to the right
+                l += 1
+            else:
+                # Copy the right value into the main list
+                lst[m] = right_half[r]
+                # Move the right pointer to the right
+                r += 1
+            # Either way, always move the main pointer to the right
+            m += 1
+
+        # When one half finishes (either left or right), copy the res of the other half into the main list
+        while l < len(left_half):
+            lst[m] = left_half[l]
+            l += 1
+            m += 1
+        while r < len(right_half):
+            lst[m] = right_half[r]
+            r += 1
+            m += 1
+
+    return lst
+
+
+print(another_list)
+merge_sort(another_list)
+print(another_list)
+
+
+line_break()
+line_break()
+#####################
+# Search Algorithms #
+#####################
+
+# * List must be sorted #
+
+# Linear Search
+print('Linear Search')
+
+def linear_search(lst, target):
+    num_checks = 0
+    # Starting at index 0 until the end of the list
+    for i in range(len(lst)):
+        num_checks += 1
+        # If the list at index i is equal to target
+        if lst[i] == target:
+            # Return the index
+            return f"{target} can be found at index {i} and it took {num_checks} checks to find"
+        # If the list at index i in greater than the target
+        elif lst[i] > target:
+            return f"Target is not found and it took {num_checks} checks"
+    # If we loop through the entire list, we know target is not there
+    return f"Target is not found and it took {num_checks} checks"
+
+
+nums = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100]
+
+print(linear_search(nums, 60))
+print(linear_search(nums, 10))
+print(linear_search(nums, 64))
+print(linear_search(nums, 95))
+
+
+
+line_break()
+
+print('Binary Search:')
+def binary_search(lst, target):
+    # Set the high and low point on the list
+    low = 0
+    high = len(lst) - 1
+    num_checks = 0
+    while low <= high:
+        # Get the middle of low and high
+        mid = (low + high) // 2
+        num_checks += 1
+        # Check if the middle is the target
+        if lst[mid] == target:
+            return f"{target} can be found at index {mid} and it took {num_checks} checks to find"
+        # If the middle is greater than the target
+        elif lst[mid] > target:
+            # Set the high to be one less than mid
+            high = mid - 1
+        # if the middle is less than target
+        else:
+            # Set the low to be one more than mid
+            low = mid + 1
+    # If low ever passes high, we know target is not there
+    return f"Target is not found and it took {num_checks} checks"
+
+
+nums = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100]
+
+print(binary_search(nums, 60))
+print(binary_search(nums, 10))
+print(binary_search(nums, 64))
+print(binary_search(nums, 95))
+
+
+line_break()
+
+big_nums = [x for x in range(1000000)]
+
+print(linear_search(big_nums, 118359))
+print(binary_search(big_nums, 118359))
 
